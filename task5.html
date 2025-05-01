@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Manager</title>
+</head>
+<body>
+  <h2>Book List</h2>
+  <table border="1">
+    <thead><tr><th>Title</th><th>Author</th><th>Year</th><th>Genre</th></tr></thead>
+    <tbody id="bookTableBody"></tbody>
+  </table>
+
+  <h3>Update Book</h3>
+  <input id="title" placeholder="Title">
+  <input id="author" placeholder="Author">
+  <input id="year" placeholder="Year">
+  <input id="genre" placeholder="Genre">
+  <button onclick="updateBook()">Update</button>
+
+  <h3>Remove Book</h3>
+  <input id="deleteTitle" placeholder="Title">
+  <button onclick="deleteBook()">Delete</button>
+
+  <script>
+    // JSON Data
+    let books = [
+      { title: "1984", author: "George Orwell", year: 1949, genre: "Dystopian" },
+      { title: "To Kill a Mockingbird", author: "Harper Lee", year: 1960, genre: "Classic" },
+      { title: "The Great Gatsby", author: "F. Scott Fitzgerald", year: 1925, genre: "Novel" }
+    ];
+
+    // Display Function
+    function displayBooks() {
+      const tableBody = document.getElementById("bookTableBody");
+      tableBody.innerHTML = "";
+      books.forEach(book => {
+        tableBody.innerHTML += `<tr>
+          <td>${book.title}</td>
+          <td>${book.author}</td>
+          <td>${book.year}</td>
+          <td>${book.genre}</td>
+        </tr>`;
+      });
+    }
+
+    // Update Book
+    function updateBook() {
+      const title = document.getElementById("title").value;
+      const author = document.getElementById("author").value;
+      const year = document.getElementById("year").value;
+      const genre = document.getElementById("genre").value;
+
+      if (!validateInputs(title, author, year, genre)) return;
+
+      const index = books.findIndex(book => book.title === title);
+      if (index !== -1) {
+        books[index] = { title, author, year: parseInt(year), genre };
+        displayBooks();
+      } else {
+        alert("Book not found.");
+      }
+    }
+
+    // Delete Book
+    function deleteBook() {
+      const title = document.getElementById("deleteTitle").value;
+      books = books.filter(book => book.title !== title);
+      displayBooks();
+    }
+
+    // Validate Inputs
+    function validateInputs(title, author, year, genre) {
+      if (!title || !author || !year || !genre) {
+        alert("All fields must be filled.");
+        return false;
+      }
+      if (isNaN(year) || year < 1000 || year > new Date().getFullYear()) {
+        alert("Invalid year.");
+        return false;
+      }
+      return true;
+    }
+
+    window.onload = displayBooks;
+  </script>
+</body>
+</html>
