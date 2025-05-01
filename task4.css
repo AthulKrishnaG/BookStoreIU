@@ -1,0 +1,29 @@
+/* Base layout using fluid grid */
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* Grid system with flexible columns */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.col {
+  flex: 1;
+  padding: 10px;
+}
+
+/* Breakpoint for tablets */
+@media screen and (max-width: 768px) {
+  .col {
+    flex-basis: 100%; /* stack columns */
+  }
+}
+
+/* Breakpoint for phones */
+@media screen and (max-width: 480px) {
+  body {
+    font-size: 14px; /* smaller font */
+  }
+}
