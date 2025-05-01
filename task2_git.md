@@ -1,6 +1,8 @@
 # Create a new directory for your project
+```
 mkdir my_project
 cd my_project
+```
 
 # Initialize a new Git repository
 git init
